@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using AppodealAds.Unity.Common;
-using AppodealAds.Unity.Api;
 
-public class GameManager : MonoBehaviour, IRewardedVideoAdListener
+public class GameManager : MonoBehaviour
 {
 
 
@@ -44,43 +42,13 @@ public class GameManager : MonoBehaviour, IRewardedVideoAdListener
 
         //Обратный вызов
         //Appodeal.confirm(Appodeal.SKIPPABLE_VIDEO);
-        string appKey = "63f06ca0105fe6c7aee4d725bd38032b478320289d281cf1";
-        Appodeal.disableLocationPermissionCheck();
-        Appodeal.initialize(appKey, Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO);
-        Appodeal.setRewardedVideoCallbacks(this);
         //Appodeal.setTesting(false);
-    }
-
-    public void StopBanner()
-    {
-        Appodeal.hide(Appodeal.BANNER_BOTTOM);
-        Appodeal.hide(Appodeal.INTERSTITIAL);
-    }
-
-    public void StartCallBack()
-    {
-       //Проверка наличия интернета
-        if(Appodeal.isLoaded(Appodeal.REWARDED_VIDEO))
-            Appodeal.show(Appodeal.REWARDED_VIDEO);
-    }
-
-    public void StartInterstitial()
-    {
-        if (Appodeal.isLoaded(Appodeal.INTERSTITIAL))
-            Appodeal.show(Appodeal.INTERSTITIAL);
-    }
-
-    public void StartBanner()
-    {
-        if (Appodeal.isLoaded(Appodeal.BANNER_BOTTOM))
-            Appodeal.show(Appodeal.BANNER_BOTTOM);
     }
 
     void Start()
     {
         isRecord = true;
         //Appodeal.hide(Appodeal.BANNER_BOTTOM);
-        Appodeal.hide(Appodeal.INTERSTITIAL);
 
         countGameover = PlayerPrefs.GetInt("CGO");
 
@@ -146,9 +114,6 @@ public class GameManager : MonoBehaviour, IRewardedVideoAdListener
             PlayerPrefs.SetInt("CGO", countGameover);
         else
             PlayerPrefs.SetInt("CGO", 0);
-       
-        if (countGameover % 5 == 0)
-            StartInterstitial();
 
 
         isManager = false;
